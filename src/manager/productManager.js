@@ -27,6 +27,7 @@ export default class ProductManager{
                 if (limit) {
                     return productsJSON.slice(0, limit);
                 }
+                console.log('estofunciona')
                 return productsJSON
             }else{ return []}
         }catch(error){

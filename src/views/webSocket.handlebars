@@ -1,9 +1,23 @@
 <h2>socket Cliente</h2>
 
-<form id="form">
+<form id="productForm">
     <label>Product: <input type="text" name="name" id="name"></label>
     <label>Price: <input type="text" name="price" id="price"></label>
     <input type="submit" value="SEND">
 </form>
+
+{{#if products.length}}
+  {{#each products }}
+  <div>
+    <ul>
+      <h1>{{this.name}}</h1>
+      <h2>Price: ${{price}}</h2>
+     
+    </ul>
+  </div>
+  {{/each}}
+{{else}}
+  <h1>Algo a pasado, no hay productos!</h1>
+{{/if}}
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/index.js"></script>
