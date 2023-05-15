@@ -26,13 +26,7 @@ productForm.addEventListener('submit', async (event) => {
   };
   console.log(data)
   socketClient.emit('newprod', data)
-//   await fetch('/api/products', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(data)
-//   });
+
   nameInput.value = '';
   priceInput.value = '';
 });
