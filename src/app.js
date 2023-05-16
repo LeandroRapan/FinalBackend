@@ -17,8 +17,9 @@ app.use("/carts", cartRouter)
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname+ '/views')
 app.set('view engine', 'handlebars')
-app.use("/socket.io", express.static(__dirname + "/node_modules/socket.io/client-dist"));
+
 app.use('/', viewRouter)
+// app.use('/realtimeproducts', viewRouter)
 
 
 
@@ -35,7 +36,8 @@ const socketServer = new Server(httpServer)
 socketServer.on('connection', (socket)=>{
     console.log('usuario conectado')
     const manager = new ProductManager('./products.json')
- socket.on('realtimeproducts', async()=>{
+ 
+    socket.on('realtimeproducts', async()=>{
     const products = await manager.getProducts();
     socketServer.emit('realtimeproducts', products);
  });
@@ -44,6 +46,6 @@ socketServer.on('connection', (socket)=>{
     console.log('Evento newprod llamado con los datos:', data)
     await manager.createProduct(data);
     const products = await manager.getProducts();
-    socketServer.emit('realtimeproducts', products);
+   socketServer.emit('realtimeproducts', products);
   })
 })

@@ -10,12 +10,27 @@ socketClient.on('disconnect', () => {
 });
 
 socketClient.on('realtimeproducts', (products) => {
-  console.log('Productos actualizados en tiempo real:', products);
-  // Aquí podrías actualizar la vista con los nuevos productos recibidos
+ let data = ''
+  products.forEach((p) => {
+    data += `
+      <div style="border: 1px solid black; margin-bottom: 10px; width: 450px;">
+        <ul>
+          <h1>${p.name}</h1>
+          <h2>Price: $${p.price}</h2>
+          
+        </ul>
+        <button style="padding: 5px" onclick="deleteProduct(${p.id})">Eliminar</button>
+      </div>
+    `;
+  })
+  const productsContainer = document.getElementById('products');
+  productsContainer.innerHTML = data;
+  console.log('Productos actualizados en tiempo real');
+ 
 });
 
 const productForm = document.getElementById('productForm');
-productForm.addEventListener('submit', async (event) => {
+productForm.addEventListener('submit',  (event) => {
   event.preventDefault();
   console.log('Form submitted!');
   const nameInput = document.getElementById('name');
@@ -24,7 +39,7 @@ productForm.addEventListener('submit', async (event) => {
     name: nameInput.value,
     price: priceInput.value
   };
-  console.log(data)
+  
   socketClient.emit('newprod', data)
 
   nameInput.value = '';
