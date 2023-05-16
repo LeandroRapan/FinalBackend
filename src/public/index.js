@@ -13,13 +13,13 @@ socketClient.on('realtimeproducts', (products) => {
  let data = ''
   products.forEach((p) => {
     data += `
-      <div style="border: 1px solid black; margin-bottom: 10px; width: 450px;">
+      <div class="product-card">
         <ul>
           <h1>${p.name}</h1>
           <h2>Price: $${p.price}</h2>
           
         </ul>
-        <button style="padding: 5px" onclick="deleteProduct(${p.id})">Eliminar</button>
+        <button class="delete-button">Eliminar</button>
       </div>
     `;
   })
@@ -45,3 +45,7 @@ productForm.addEventListener('submit',  (event) => {
   nameInput.value = '';
   priceInput.value = '';
 });
+
+function deleteProduct(id) {
+  socketClient.emit('deleteProduct', id);
+}

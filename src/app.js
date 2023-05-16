@@ -48,4 +48,10 @@ socketServer.on('connection', (socket)=>{
     const products = await manager.getProducts();
    socketServer.emit('realtimeproducts', products);
   })
+  socket.on('deleteProduct', async (id) => {
+   await manager.deleteProductById(id);
+   const products = await manager.getProducts();
+   // socketServer.emit('deleteProduct', id);
+   socketServer.emit('realtimeproducts', products);
+});
 })
