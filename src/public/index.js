@@ -13,13 +13,13 @@ socketClient.on('realtimeproducts', (products) => {
  let data = ''
   products.forEach((p) => {
     data += `
-      <div class="product-card">
+      <div class="product-card" >
         <ul>
           <h1>${p.name}</h1>
           <h2>Price: $${p.price}</h2>
           
         </ul>
-        <button class="delete-button">Eliminar</button>
+        <button class="delete-button" onclick="deleteProduct(${p.id})">Eliminar</button>
       </div>
     `;
   })
